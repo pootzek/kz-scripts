@@ -1,0 +1,1 @@
+Skrypty projektu Kryptoznaczek
