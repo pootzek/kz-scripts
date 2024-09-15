@@ -1,4 +1,5 @@
 import csv
+import os
 import pytz
 import requests
 from datetime import datetime
@@ -6,7 +7,7 @@ import argparse
 
 # Klucz api key trzeba pobrać z https://docs.polygonscan.com/getting-started/viewing-api-usage-statistics
 API_KEY = "apikey"
-
+api_key = os.environ.get("API_KEY", API_KEY)
 
 tz = pytz.timezone('Europe/Warsaw')
 
@@ -29,7 +30,7 @@ def parse_zico(zico_string):
 def download_transactions(contract_address, offset, startblock, action, page=1):
     print(f"Pobieranie transakcji, początkowy blok: {startblock}")
     url = f"https://api.polygonscan.com/api?module=account&action={action}&contractaddress=" \
-          f"{contract_address}&page={page}&offset={offset}&startblock={startblock}&endblock=99999999&sort=asc&apikey={API_KEY}"
+          f"{contract_address}&page={page}&offset={offset}&startblock={startblock}&endblock=99999999&sort=asc&apikey={api_key}"
 
     resp = requests.get(url=url)
     data = resp.json()
